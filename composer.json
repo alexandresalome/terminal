@@ -1,0 +1,13 @@
+{
+    "name": "alexandresalome/terminal",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Terminal\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/error-handler": "^5.2",
+        "symfony/var-dumper": "^5.2"
+    }
+}
