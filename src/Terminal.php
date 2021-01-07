@@ -7,6 +7,7 @@ use Terminal\Capabilities\Terminfo;
 class Terminal
 {
     private Capabilities $cap;
+    private array $windows = [];
 
     public function __construct()
     {
@@ -71,5 +72,10 @@ class Terminal
         }
 
         throw new \RuntimeException('No capability to clear the screen.');
+    }
+
+    public function color(string $color, string $content, ?string $backgroundColor = null): string
+    {
+        dd('color');
     }
 }
