@@ -24,7 +24,6 @@ Unhandled capabilities
 "carriage_return" => "\r"
 "change_scroll_region" => "\e[%i%p1%d;%p2%dr"
 "clear_all_tabs" => "\e[3g"
-"clr_eol" => "\e[K"
 "column_address" => "\e[%i%p1%dG"
 "cursor_address" => "\e[%i%p1%d;%p2%dH"
 "cursor_down" => "\n"
