@@ -1,81 +1,61 @@
 Unhandled capabilities
 ======================
 
+[Description](https://www.mkssoftware.com/docs/man5/terminfo.5.asp)
+
 ```
 // boleans
-"no_esc_ctlc" => true
-"erase_overstrike" => true
-"has_status_line" => true
-"move_standout_mode" => true
-"over_strike" => true
-"hard_cursor" => true
-"non_dest_scroll_region" => true
 "back_color_erase" => true
+"erase_overstrike" => true
+"hard_cursor" => true
+"has_status_line" => true
 "hue_lightness_saturation" => true
+"move_standout_mode" => true
+"no_esc_ctlc" => true
+"non_dest_scroll_region" => true
+"over_strike" => true
 
 // fallback values for columns/lines
 "columns" => 80
 "lines" => 8
 
-"init_tabs" => 524288
-"lines_of_memory" => 1572864
-"magic_cookie_glitch" => 24
-"padding_baud_rate" => -65536
+"acs_chars" => "``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~"
 "back_tab" => "\e[Z"
 "carriage_return" => "\r"
 "change_scroll_region" => "\e[%i%p1%d;%p2%dr"
 "clear_all_tabs" => "\e[3g"
 "clr_eol" => "\e[K"
-"clr_eos" => "\e[J"
 "column_address" => "\e[%i%p1%dG"
 "cursor_address" => "\e[%i%p1%d;%p2%dH"
 "cursor_down" => "\n"
 "cursor_home" => "\e[H"
-"cursor_invisible" => "\e[?25l"
 "cursor_left" => "\x08"
 "cursor_normal" => "\e[?12l\e[?25h"
 "cursor_right" => "\e[C"
 "cursor_up" => "\e[A"
-"cursor_visible" => "\e[?12;25h"
 "delete_character" => "\e[P"
 "enter_alt_charset_mode" => "\e(0"
 "enter_dim_mode" => "\e[2m"
 "enter_insert_mode" => "\e[4h"
-"enter_secure_mode" => "\e[8m"
 "enter_reverse_mode" => "\e[7m"
-"enter_standout_mode" => "\e[7m"
+"enter_secure_mode" => "\e[8m"
 "erase_chars" => "\e[%p1%dX"
 "exit_alt_charset_mode" => "\e(B"
 "exit_insert_mode" => "\e[4l"
-"exit_standout_mode" => "\e[27m"
 "init_2string" => "\e[!p\e[?3;4l\e[4l\e>"
+"init_tabs" => 524288
+"initialize_color" => "\e]4;%p1%d;rgb:%p2%{255}%*%{1000}%/%2.2X/%p3%{255}%*%{1000}%/%2.2X/%p4%{255}%*%{1000}%/%2.2X\e\"
 "insert_line" => "\e[L"
-"key_backspace" => "\x7F"
-"key_dc" => "\e[3~"
-"key_down" => "\eOB"
-"key_f1" => "\eOP"
-"key_f10" => "\e[21~"
-"key_f2" => "\eOQ"
-"key_f3" => "\eOR"
-"key_f4" => "\eOS"
-"key_f5" => "\e[15~"
-"key_f6" => "\e[17~"
-"key_f7" => "\e[18~"
-"key_f8" => "\e[19~"
-"key_f9" => "\e[20~"
-"key_home" => "\eOH"
-"key_ic" => "\e[2~"
-"key_left" => "\eOD"
-"key_npage" => "\e[6~"
-"key_ppage" => "\e[5~"
-"key_right" => "\eOC"
-"key_sf" => "\e[1;2B"
-"key_sr" => "\e[1;2A"
-"key_up" => "\eOA"
+"key_mouse" => "\e[M"
 "keypad_local" => "\e[?1l\e>"
 "keypad_xmit" => "\e[?1h\e="
+"lines_of_memory" => 1572864
+"magic_cookie_glitch" => 24
 "meta_off" => "\e[?1034l"
 "meta_on" => "\e[?1034h"
+"orig_colors" => "\e]104\x07"
+"orig_pair" => "\e[39;49m"
+"padding_baud_rate" => -65536
 "parm_dch" => "\e[%p1%dP"
 "parm_delete_line" => "\e[%p1%dM"
 "parm_down_cursor" => "\e[%p1%dB"
@@ -96,22 +76,26 @@ Unhandled capabilities
 "save_cursor" => "\e7"
 "scroll_forward" => "\n"
 "scroll_reverse" => "\eM"
+"set_a_background" => "\e[%?%p1%{8}%<%t4%p1%d%e%p1%{16}%<%t10%p1%{8}%-%d%e48;5;%p1%d%;m"
+"set_a_foreground" => "\e[%?%p1%{8}%<%t3%p1%d%e%p1%{16}%<%t9%p1%{8}%-%d%e38;5;%p1%d%;m"
 "set_attributes" => "%?%p9%t\e(0%e\e(B%;\e[0%?%p6%t;1%;%?%p5%t;2%;%?%p2%t;4%;%?%p1%p3%|%t;7%;%?%p4%t;5%;%?%p7%t;8%;m"
 "set_tab" => "\eH"
 "tab" => "\t"
+"user6" => "\e[%i%d;%dR"
+"user7" => "\e[6n"
+"user8" => "\e[?%[;0123456789]c"
+"user9" => "\e[c"
+
+// Keys
 "key_b2" => "\eOE"
-"acs_chars" => "``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~"
+"key_backspace" => "\x7F"
 "key_btab" => "\e[Z"
+"key_dc" => "\e[3~"
+"key_down" => "\eOB"
 "key_end" => "\eOF"
 "key_enter" => "\eOM"
-"key_sdc" => "\e[3;2~"
-"key_send" => "\e[1;2F"
-"key_shome" => "\e[1;2H"
-"key_sic" => "\e[2;2~"
-"key_sleft" => "\e[1;2D"
-"key_snext" => "\e[6;2~"
-"key_sprevious" => "\e[5;2~"
-"key_sright" => "\e[1;2C"
+"key_f1" => "\eOP"
+"key_f10" => "\e[21~"
 "key_f11" => "\e[23~"
 "key_f12" => "\e[24~"
 "key_f13" => "\e[1;2P"
@@ -121,6 +105,7 @@ Unhandled capabilities
 "key_f17" => "\e[15;2~"
 "key_f18" => "\e[17;2~"
 "key_f19" => "\e[18;2~"
+"key_f2" => "\eOQ"
 "key_f20" => "\e[19;2~"
 "key_f21" => "\e[20;2~"
 "key_f22" => "\e[21;2~"
@@ -131,6 +116,7 @@ Unhandled capabilities
 "key_f27" => "\e[1;5R"
 "key_f28" => "\e[1;5S"
 "key_f29" => "\e[15;5~"
+"key_f3" => "\eOR"
 "key_f30" => "\e[17;5~"
 "key_f31" => "\e[18;5~"
 "key_f32" => "\e[19;5~"
@@ -141,6 +127,7 @@ Unhandled capabilities
 "key_f37" => "\e[1;6P"
 "key_f38" => "\e[1;6Q"
 "key_f39" => "\e[1;6R"
+"key_f4" => "\eOS"
 "key_f40" => "\e[1;6S"
 "key_f41" => "\e[15;6~"
 "key_f42" => "\e[17;6~"
@@ -151,6 +138,7 @@ Unhandled capabilities
 "key_f47" => "\e[23;6~"
 "key_f48" => "\e[24;6~"
 "key_f49" => "\e[1;3P"
+"key_f5" => "\e[15~"
 "key_f50" => "\e[1;3Q"
 "key_f51" => "\e[1;3R"
 "key_f52" => "\e[1;3S"
@@ -161,18 +149,30 @@ Unhandled capabilities
 "key_f57" => "\e[20;3~"
 "key_f58" => "\e[21;3~"
 "key_f59" => "\e[23;3~"
+"key_f6" => "\e[17~"
 "key_f60" => "\e[24;3~"
 "key_f61" => "\e[1;4P"
 "key_f62" => "\e[1;4Q"
 "key_f63" => "\e[1;4R"
-"user6" => "\e[%i%d;%dR"
-"user7" => "\e[6n"
-"user8" => "\e[?%[;0123456789]c"
-"user9" => "\e[c"
-"orig_pair" => "\e[39;49m"
-"orig_colors" => "\e]104\x07"
-"initialize_color" => "\e]4;%p1%d;rgb:%p2%{255}%*%{1000}%/%2.2X/%p3%{255}%*%{1000}%/%2.2X/%p4%{255}%*%{1000}%/%2.2X\e\"
-"key_mouse" => "\e[M"
-"set_a_foreground" => "\e[%?%p1%{8}%<%t3%p1%d%e%p1%{16}%<%t9%p1%{8}%-%d%e38;5;%p1%d%;m"
-"set_a_background" => "\e[%?%p1%{8}%<%t4%p1%d%e%p1%{16}%<%t10%p1%{8}%-%d%e48;5;%p1%d%;m"
+"key_f7" => "\e[18~"
+"key_f8" => "\e[19~"
+"key_f9" => "\e[20~"
+"key_home" => "\eOH"
+"key_ic" => "\e[2~"
+"key_left" => "\eOD"
+"key_npage" => "\e[6~"
+"key_ppage" => "\e[5~"
+"key_right" => "\eOC"
+"key_sdc" => "\e[3;2~"
+"key_send" => "\e[1;2F"
+"key_sf" => "\e[1;2B"
+"key_shome" => "\e[1;2H"
+"key_sic" => "\e[2;2~"
+"key_sleft" => "\e[1;2D"
+"key_snext" => "\e[6;2~"
+"key_sprevious" => "\e[5;2~"
+"key_sr" => "\e[1;2A"
+"key_sright" => "\e[1;2C"
+"key_up" => "\eOA"
+
 ```

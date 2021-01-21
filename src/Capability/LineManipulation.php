@@ -3,9 +3,9 @@
 namespace Terminal\Capability;
 
 /**
- * Line deletion manipulations.
+ * Line manipulations.
  */
-trait DeleteLine
+trait LineManipulation
 {
     public function canDeleteLine(): bool
     {
@@ -17,7 +17,7 @@ trait DeleteLine
      */
     public function deleteLine(): void
     {
-        if (!$this->configuration->has('delete_line')) {
+        if (!$this->canDeleteLine()) {
             return;
         }
 
@@ -35,10 +35,28 @@ trait DeleteLine
      */
     public function clearBeginningOfLine(): void
     {
-        if (!$this->configuration->has('clr_bol')) {
+        if (!$this->canClearBeginningOfLine()) {
             return;
         }
 
         $this->output->write($this->configuration->get('clr_bol'));
+    }
+
+    public function canClearEndOfLine(): bool
+    {
+        return $this->configuration->has('clr_eol');
+    }
+
+    /**
+     * Clear text on current line after the cursor position and keep the cursor
+     * at the same position.
+     */
+    public function clearEndOfLine(): void
+    {
+        if (!$this->canClearBeginningOfLine()) {
+            return;
+        }
+
+        $this->output->write($this->configuration->get('clr_eol'));
     }
 }

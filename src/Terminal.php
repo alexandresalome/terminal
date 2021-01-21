@@ -5,10 +5,10 @@ namespace Terminal;
 class Terminal
 {
     use Capability\AutoMargin;
-    use Capability\ClearScreen;
     use Capability\CursorAddressing;
-    use Capability\DeleteLine;
-    use Capability\FlashScreen;
+    use Capability\CursorVisibility;
+    use Capability\LineManipulation;
+    use Capability\Screen;
     use Capability\Text;
 
     private Configuration $configuration;
