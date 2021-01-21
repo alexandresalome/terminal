@@ -1,8 +1,6 @@
 <?php
 
-namespace Terminal\Capabilities;
-
-use Terminal\Capabilities;
+namespace Terminal;
 
 # https://www.gnu.org/software/termutils/manual/termcap-1.3/html_mono/termcap.html#SEC23
 
@@ -496,7 +494,7 @@ class Terminfo
 
     private static int $stringsCount = 394;
 
-    public function guess(): Capabilities
+    public function guess(): Configuration
     {
         $term = getenv('TERM');
         if (!$term) {
@@ -519,7 +517,7 @@ class Terminfo
         return $this->minimal();
     }
 
-    public function readFile(string $file): Capabilities
+    public function readFile(string $file): Configuration
     {
         $buffer = file_get_contents($file);
         $offset = 0;
@@ -605,11 +603,11 @@ class Terminfo
             }
         }
 
-        return new Capabilities($result['capabilities']);
+        return new Configuration($result['capabilities']);
     }
 
-    private function minimal(): Capabilities
+    private function minimal(): Configuration
     {
-        return new Capabilities();
+        return new Configuration();
     }
 }

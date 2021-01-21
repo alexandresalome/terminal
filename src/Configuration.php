@@ -5,7 +5,7 @@ namespace Terminal;
 /**
  * This class hold the Terminal capabilities, using terminfo identifiers.
  */
-class Capabilities implements \IteratorAggregate
+class Configuration implements \IteratorAggregate
 {
     private array $values;
 
