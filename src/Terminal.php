@@ -5,15 +5,11 @@ namespace Terminal;
 class Terminal
 {
     use Capability\AutoMargin;
-    use Capability\Blink;
-    use Capability\Bold;
     use Capability\ClearScreen;
     use Capability\CursorAddressing;
     use Capability\DeleteLine;
     use Capability\FlashScreen;
-    use Capability\Italic;
-    use Capability\Standout;
-    use Capability\Underline;
+    use Capability\Text;
 
     private Configuration $configuration;
     private Output $output;
@@ -24,11 +20,16 @@ class Terminal
         $this->output = new Output();
     }
 
-    public function write(string $text, bool $newline = true): void
+    public function write(string $text): void
     {
         $this->output->write($text);
-        if ($newline) {
-            $this->output->write("\n");
-        }
+        $this->output->flush();
+    }
+
+    public function writeln(string $text): void
+    {
+        $this->output->write($text);
+        $this->output->write("\n");
+        $this->output->flush();
     }
 }

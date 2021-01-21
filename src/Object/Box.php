@@ -24,7 +24,7 @@ class Box
         $this->borders = $borders ?: self::BORDERS['thin'];
     }
 
-    public function render(): string
+    public function __toString(): string
     {
         $lines = explode("\n", $this->content);
         $width = max(array_map('mb_strlen', $lines));

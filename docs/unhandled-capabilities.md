@@ -165,7 +165,6 @@ Unhandled capabilities
 "key_f61" => "\e[1;4P"
 "key_f62" => "\e[1;4Q"
 "key_f63" => "\e[1;4R"
-"clr_bol" => "\e[1K"
 "user6" => "\e[%i%d;%dR"
 "user7" => "\e[6n"
 "user8" => "\e[?%[;0123456789]c"

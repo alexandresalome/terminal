@@ -2,10 +2,6 @@
 
 namespace Terminal\Capability;
 
-/**
- * Automatic margin consists of wrapping text to a newline if cursor exceeds the
- * end of the line.
- */
 trait AutoMargin
 {
     public function hasAutoMargin(): bool
@@ -13,41 +9,26 @@ trait AutoMargin
         return $this->configuration->hasAll(['enter_am_mode', 'exit_am_mode']);
     }
 
-    public function enterAutoMarginMode(): void
+    /**
+     * Auto margin wraps text to a newline if the cursor exceeds the end of
+     * line.
+     *
+     * Without auto margin mode, at the end of line, the cursor move back to the
+     * beginning of the same line.
+     *
+     * With auto margin mode, at the end of line, the cursor moves to the next
+     * line.
+     */
+    public function autoMargin($enable = true): void
     {
         if (!$this->hasAutoMargin()) {
             return;
         }
 
-        $this->output->write($this->configuration->get('enter_am_mode'));
-    }
-
-    public function exitAutoMarginMode(): void
-    {
-        if (!$this->hasAutoMargin()) {
-            return;
-        }
-
-        $this->output->write($this->configuration->get('exit_am_mode'));
-    }
-
-    public function withAutoMarginMode(callable $function)
-    {
-        $this->enterAutoMarginMode();
-        try {
-            return $function();
-        } finally {
-            $this->exitAutoMarginMode();
-        }
-    }
-
-    public function withoutAutoMarginMode(callable $function)
-    {
-        $this->exitAutoMarginMode();
-        try {
-            return $function();
-        } finally {
-            $this->enterAutoMarginMode();
+        if ($enable) {
+            $this->output->write($this->configuration->get('enter_am_mode'));
+        } else {
+            $this->output->write($this->configuration->get('exit_am_mode'));
         }
     }
 }
