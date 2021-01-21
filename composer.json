@@ -9,8 +9,16 @@
             "Terminal\\": "src/"
         }
     },
+
+    "autoload-dev": {
+        "psr-4": {
+            "Terminal\\Tests\\": "tests/"
+        }
+    },
+
     "require-dev": {
         "symfony/error-handler": "^5.2",
-        "symfony/var-dumper": "^5.2"
+        "symfony/var-dumper": "^5.2",
+        "phpunit/phpunit": "^9.5"
     }
 }
