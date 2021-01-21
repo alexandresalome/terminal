@@ -4,7 +4,7 @@ namespace Terminal\Tests\Capability;
 
 use PHPUnit\Framework\TestCase;
 use Terminal\Configuration;
-use Terminal\Output\TestOutput;
+use Terminal\Dev\Output\TestOutput;
 use Terminal\Terminal;
 
 class ScreenTest extends TestCase

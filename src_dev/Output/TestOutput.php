@@ -1,6 +1,8 @@
 <?php
 
-namespace Terminal\Output;
+namespace Terminal\Dev\Output;
+
+use Terminal\Output\OutputInterface;
 
 class TestOutput implements OutputInterface
 {
