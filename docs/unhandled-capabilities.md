@@ -102,8 +102,6 @@ Unhandled capabilities
 "key_b2" => "\eOE"
 "acs_chars" => "``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~"
 "key_btab" => "\e[Z"
-"enter_am_mode" => "\e[?7h"
-"exit_am_mode" => "\e[?7l"
 "key_end" => "\eOF"
 "key_enter" => "\eOM"
 "key_sdc" => "\e[3;2~"

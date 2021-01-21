@@ -2,27 +2,18 @@
 
 namespace Terminal;
 
-use Terminal\Capability\Blink;
-use Terminal\Capability\Bold;
-use Terminal\Capability\ClearScreen;
-use Terminal\Capability\CursorAddressing;
-use Terminal\Capability\DeleteLine;
-use Terminal\Capability\FlashScreen;
-use Terminal\Capability\Italic;
-use Terminal\Capability\Standout;
-use Terminal\Capability\Underline;
-
 class Terminal
 {
-    use Blink;
-    use Bold;
-    use ClearScreen;
-    use CursorAddressing;
-    use DeleteLine;
-    use FlashScreen;
-    use Italic;
-    use Standout;
-    use Underline;
+    use Capability\AutoMargin;
+    use Capability\Blink;
+    use Capability\Bold;
+    use Capability\ClearScreen;
+    use Capability\CursorAddressing;
+    use Capability\DeleteLine;
+    use Capability\FlashScreen;
+    use Capability\Italic;
+    use Capability\Standout;
+    use Capability\Underline;
 
     private Configuration $configuration;
     private Output $output;
