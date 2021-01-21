@@ -1,0 +1,18 @@
+site_name: PHP Terminal
+repo_url: https://github.com/alexandresalome/terminal/
+
+docs_dir: docs
+site_dir: build/doc
+
+theme: readthedocs
+
+nav:
+  - Installation: installation.md
+  - Resources:
+    - 'unhandled-capabilities.md'
+    - 'related.md'
+
+extra:
+  version: 0.1
+
+strict: true
