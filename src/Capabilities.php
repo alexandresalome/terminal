@@ -2,6 +2,9 @@
 
 namespace Terminal;
 
+/**
+ * This class hold the Terminal capabilities, using terminfo identifiers.
+ */
 class Capabilities implements \IteratorAggregate
 {
     private array $values;
@@ -34,6 +37,17 @@ class Capabilities implements \IteratorAggregate
         }
 
         return false;
+    }
+
+    public function hasAll(array $names): bool
+    {
+        foreach ($names as $name) {
+            if (!array_key_exists($name, $this->values)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function getIterator(): \Traversable

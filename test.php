@@ -8,8 +8,28 @@ use Terminal\Object\Box;
 
 $terminal = new Terminal\Terminal();
 $terminal->flashScreen();
-$terminal->clearScreen();
 
-$box = new Box(file_get_contents(__FILE__));
+$text =
+    'This is a rich text with usual features: '.
+    $terminal->italic('italic').
+    ', '.
+    $terminal->bold('bold').
+    ', '.
+    $terminal->underline('underline').
+    ', '.
+    $terminal->blink('blink').
+    ', and many more soon!'
+;
 
-$terminal->write($box->render());
+$terminal->writeln($text);
+$terminal->write((new Box($text))->render());
+
+sleep(1);
+
+$terminal->withCursorAddressingMode(function () use ($terminal) {
+    $terminal->clearScreen();
+    $terminal->writeln("Cursor addressing mode");
+    sleep(1);
+    $terminal->write((new Box('Coucou :)'))->render());
+    sleep(1);
+});

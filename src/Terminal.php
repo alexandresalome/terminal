@@ -25,6 +25,11 @@ class Terminal
         fwrite(STDOUT, $text);
     }
 
+    public function writeln(string $text): void
+    {
+        fwrite(STDOUT, $text."\n");
+    }
+
     public function flush(): void
     {
         fflush(STDOUT);
@@ -74,8 +79,108 @@ class Terminal
         throw new \RuntimeException('No capability to clear the screen.');
     }
 
-    public function color(string $color, string $content, ?string $backgroundColor = null): string
+    public function hasItalic(): bool
     {
-        dd('color');
+        return $this->cap->hasAll(['enter_italics_mode', 'exit_italics_mode']);
+    }
+
+    public function italic(string $text): string
+    {
+        if (!$this->hasItalic()) {
+            return $text;
+        }
+
+        return
+            $this->cap->get('enter_italics_mode').
+            $text.
+            $this->cap->get('exit_italics_mode')
+        ;
+    }
+
+    public function hasUnderline(): bool
+    {
+        return $this->cap->hasAll(['enter_underline_mode', 'exit_underline_mode']);
+    }
+
+    public function underline(string $text): string
+    {
+        if (!$this->hasUnderline()) {
+            return $text;
+        }
+
+        return
+            $this->cap->get('enter_underline_mode').
+            $text.
+            $this->cap->get('exit_underline_mode')
+            ;
+    }
+
+    public function hasBold(): bool
+    {
+        return $this->cap->hasAll(['enter_bold_mode', 'exit_attribute_mode']);
+    }
+
+    public function bold(string $text): string
+    {
+        if (!$this->hasBold()) {
+            return $text;
+        }
+
+        return
+            $this->cap->get('enter_bold_mode').
+            $text.
+            $this->cap->get('exit_attribute_mode')
+            ;
+    }
+
+    public function hasBlink(): bool
+    {
+        return $this->cap->hasAll(['enter_blink_mode', 'exit_attribute_mode']);
+    }
+
+    public function blink(string $text): string
+    {
+        if (!$this->hasBlink()) {
+            return $text;
+        }
+
+        return
+            $this->cap->get('enter_blink_mode').
+            $text.
+            $this->cap->get('exit_attribute_mode')
+            ;
+    }
+
+    public function hasCursorAddressing(): bool
+    {
+        return $this->cap->hasAll(['enter_ca_mode', 'exit_ca_mode']);
+    }
+
+    public function enterCursorAddressingMode(): void
+    {
+        if (!$this->hasCursorAddressing()) {
+            return;
+        }
+
+        $this->write($this->cap->get('enter_ca_mode'));
+    }
+
+    public function exitCursorAddressingMode(): void
+    {
+        if (!$this->hasCursorAddressing()) {
+            return;
+        }
+
+        $this->write($this->cap->get('exit_ca_mode'));
+    }
+
+    public function withCursorAddressingMode(callable $function)
+    {
+        $this->enterCursorAddressingMode();
+        try {
+            return $function();
+        } finally {
+            $this->exitCursorAddressingMode();
+        }
     }
 }

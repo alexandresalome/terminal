@@ -1,6 +1,9 @@
 {
     "name": "alexandresalome/terminal",
+    "description": "A library to manipulate terminals",
+    "license": "MIT",
     "type": "library",
+
     "autoload": {
         "psr-4": {
             "Terminal\\": "src/"
