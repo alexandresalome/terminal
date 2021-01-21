@@ -19,6 +19,6 @@ trait Italic
             $this->configuration->get('enter_italics_mode').
             $text.
             $this->configuration->get('exit_italics_mode')
-            ;
+        ;
     }
 }

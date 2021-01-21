@@ -9,6 +9,7 @@ use Terminal\Capability\CursorAddressing;
 use Terminal\Capability\DeleteLine;
 use Terminal\Capability\FlashScreen;
 use Terminal\Capability\Italic;
+use Terminal\Capability\Standout;
 use Terminal\Capability\Underline;
 
 class Terminal
@@ -20,6 +21,7 @@ class Terminal
     use DeleteLine;
     use FlashScreen;
     use Italic;
+    use Standout;
     use Underline;
 
     private Configuration $configuration;

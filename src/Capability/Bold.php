@@ -19,6 +19,6 @@ trait Bold
             $this->configuration->get('enter_bold_mode').
             $text.
             $this->configuration->get('exit_attribute_mode')
-            ;
+        ;
     }
 }

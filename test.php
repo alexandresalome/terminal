@@ -18,6 +18,8 @@ $text =
     $terminal->underline('underline').
     ', '.
     $terminal->blink('blink').
+    ', '.
+    $terminal->standout('standout').
     ', and many more soon!'
 ;
 
@@ -26,5 +28,6 @@ $terminal->withCursorAddressingMode(function () use ($terminal, $text) {
     $terminal->clearScreen();
     $terminal->write("Cursor addressing mode");
     $terminal->write((new Box($text))->render());
-    sleep(5);
+
+    fread(STDIN, 1);
 });

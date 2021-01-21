@@ -19,7 +19,7 @@ trait Blink
             $this->configuration->get('enter_blink_mode').
             $text.
             $this->configuration->get('exit_attribute_mode')
-            ;
+        ;
     }
 
 }

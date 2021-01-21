@@ -21,6 +21,6 @@ trait Underline
             $this->configuration->get('enter_underline_mode').
             $text.
             $this->configuration->get('exit_underline_mode')
-            ;
+        ;
     }
 }
