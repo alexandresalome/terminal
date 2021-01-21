@@ -21,15 +21,10 @@ $text =
     ', and many more soon!'
 ;
 
-$terminal->write($text);
-$terminal->write((new Box($text))->render());
-
-sleep(1);
-
-$terminal->withCursorAddressingMode(function () use ($terminal) {
+$terminal->withCursorAddressingMode(function () use ($terminal, $text) {
+    $terminal->deleteLine();
     $terminal->clearScreen();
     $terminal->write("Cursor addressing mode");
-    sleep(1);
-    $terminal->write((new Box('Coucou :)'))->render());
-    sleep(1);
+    $terminal->write((new Box($text))->render());
+    sleep(5);
 });

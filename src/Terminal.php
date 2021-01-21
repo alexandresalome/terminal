@@ -6,6 +6,7 @@ use Terminal\Capability\Blink;
 use Terminal\Capability\Bold;
 use Terminal\Capability\ClearScreen;
 use Terminal\Capability\CursorAddressing;
+use Terminal\Capability\DeleteLine;
 use Terminal\Capability\FlashScreen;
 use Terminal\Capability\Italic;
 use Terminal\Capability\Underline;
@@ -16,6 +17,7 @@ class Terminal
     use Bold;
     use ClearScreen;
     use CursorAddressing;
+    use DeleteLine;
     use FlashScreen;
     use Italic;
     use Underline;
