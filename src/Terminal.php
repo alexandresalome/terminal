@@ -8,7 +8,7 @@ use Terminal\Output\StreamOutput;
 class Terminal
 {
     use Capability\AutoMargin;
-    use Capability\CursorAddressing;
+    use Capability\Cursor;
     use Capability\CursorVisibility;
     use Capability\LineManipulation;
     use Capability\Screen;

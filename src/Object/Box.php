@@ -4,52 +4,52 @@ namespace Terminal\Object;
 
 use Terminal\Vector;
 
-class Box
+class Box extends Object_
 {
     public const BORDERS = [
-        'ascii'       => ['+', '-', '+', '|', '|', '+', '-', '+'],
-        'dashed'      => ['┌', '┄', '┐', '┊', '┊', '└', '┄', '┘'],
+        'ascii' => ['+', '-', '+', '|', '|', '+', '-', '+'],
+        'dashed' => ['┌', '┄', '┐', '┊', '┊', '└', '┄', '┘'],
         'dashed_bold' => ['┏', '┅', '┓', '┋', '┋', '┗', '┅', '┛'],
-        'thin'        => ['┌', '─', '┐', '│', '│', '└', '─', '┘'],
-        'rounded'     => ['╭', '─', '╮', '│', '│', '╰', '─', '╯'],
-        'double'      => ['╔', '═', '╗', '║', '║', '╚', '═', '╝'],
-        'bold'        => ['┏', '━', '┓', '┃', '┃', '┗', '━', '┛'],
-        'big'         => ['█', '▀', '█', '█', '█', '█', '▄', '█'],
-        'very_big'    => ['█', '█', '█', '█', '█', '█', '█', '█'],
+        'thin' => ['┌', '─', '┐', '│', '│', '└', '─', '┘'],
+        'rounded' => ['╭', '─', '╮', '│', '│', '╰', '─', '╯'],
+        'double' => ['╔', '═', '╗', '║', '║', '╚', '═', '╝'],
+        'bold' => ['┏', '━', '┓', '┃', '┃', '┗', '━', '┛'],
+        'big' => ['█', '▀', '█', '█', '█', '█', '▄', '█'],
+        'very_big' => ['█', '█', '█', '█', '█', '█', '█', '█'],
     ];
 
     /** @var string[] */
-    private array $content;
+    private array $lines;
     private ?array $borders;
-    private Vector $size;
 
-    public function __construct(string $content, ?array $borders = null, ?Vector $size = null)
+    public function __construct(string $content, ?array $borders = null, $position = null, $size = null)
     {
         $this->lines = explode("\n", $content);
-        $this->borders = $borders ?: self::BORDERS['thin'];
-        $this->size = $size ?? $this->computeSize($content);
+        $this->borders = $borders ?? self::BORDERS['bold'];
+        parent::__construct($position, $size ?? $this->computeSize($content));
+
     }
 
-    public function __toString(): string
+    public function render(): array
     {
-        $leftBorder = $this->borders[3].' ';
+        $size = $this->getSize();
+        $leftBorder = $this->borders[3] . ' ';
         $borderMargin = 2;
-        $rightBorder = ' '.$this->borders[4];
+        $rightBorder = ' ' . $this->borders[4];
 
-        $result = $this->borders[0].str_repeat($this->borders[1], $this->size->y + $borderMargin).$this->borders[2]."\n";
+        $result = [$this->borders[0] . str_repeat($this->borders[1], $size->y + $borderMargin) . $this->borders[2] . "\n"];
 
-        for ($i = 0; $i < $this->size->x; $i++) {
+        for ($i = 0; $i < $size->x; $i++) {
             $line = $this->lines[$i] ?? '';
-            $result .=
-                $leftBorder.
-                $line.
-                str_repeat(" ", $this->size->y - mb_strlen($line)).
-                $rightBorder.
-                "\n"
-            ;
+            $result[] =
+                $leftBorder .
+                $line .
+                str_repeat(" ", $size->y - mb_strlen($line)) .
+                $rightBorder .
+                "\n";
         }
 
-        $result .= $this->borders[5].str_repeat($this->borders[6], $this->size->y + $borderMargin).$this->borders[7]."\n";
+        $result []= $this->borders[5] . str_repeat($this->borders[6], $size->y + $borderMargin) . $this->borders[7] . "\n";
 
         return $result;
     }
