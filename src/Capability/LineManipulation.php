@@ -18,7 +18,7 @@ trait LineManipulation
     public function deleteLine(): void
     {
         if (!$this->canDeleteLine()) {
-            return;
+            throw new \RuntimeException('Delete line is unavailable.');
         }
 
         $this->output->write($this->configuration->get('delete_line'));
@@ -36,7 +36,7 @@ trait LineManipulation
     public function clearBeginningOfLine(): void
     {
         if (!$this->canClearBeginningOfLine()) {
-            return;
+            throw new \RuntimeException('Clear beginning of line is unavailable.');
         }
 
         $this->output->write($this->configuration->get('clr_bol'));
@@ -53,8 +53,8 @@ trait LineManipulation
      */
     public function clearEndOfLine(): void
     {
-        if (!$this->canClearBeginningOfLine()) {
-            return;
+        if (!$this->canClearEndOfLine()) {
+            throw new \RuntimeException('Clear end of line is unavailable.');
         }
 
         $this->output->write($this->configuration->get('clr_eol'));

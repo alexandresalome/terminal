@@ -40,7 +40,8 @@ class ScreenTest extends TestCase
         $terminal = new Terminal($config, $output);
         self::assertFalse($terminal->canFlashScreen());
 
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Flash screen is unavailable.');
         $terminal->flashScreen();
-        self::assertEmpty($output->getTestRecords());
     }
 }

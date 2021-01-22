@@ -26,6 +26,5 @@ $terminal->write($terminal->standout($terminal->blink('Press ENTER')));
 fread(STDIN, 1);
 
 register_shutdown_function(function () use ($terminal) {
-    $terminal->exitCursorAddressingMode();
+    $terminal->cursorAddressingMode(false);
 });
-

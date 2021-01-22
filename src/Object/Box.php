@@ -37,19 +37,19 @@ class Box extends Object_
         $borderMargin = 2;
         $rightBorder = ' ' . $this->borders[4];
 
-        $result = [$this->borders[0] . str_repeat($this->borders[1], $size->y + $borderMargin) . $this->borders[2] . "\n"];
+        $result = [$this->borders[0] . str_repeat($this->borders[1], $size->y + $borderMargin) . $this->borders[2]];
 
         for ($i = 0; $i < $size->x; $i++) {
             $line = $this->lines[$i] ?? '';
             $result[] =
-                $leftBorder .
-                $line .
-                str_repeat(" ", $size->y - mb_strlen($line)) .
-                $rightBorder .
-                "\n";
+                $leftBorder.
+                $line.
+                str_repeat(" ", $size->y - mb_strlen($line)).
+                $rightBorder
+            ;
         }
 
-        $result []= $this->borders[5] . str_repeat($this->borders[6], $size->y + $borderMargin) . $this->borders[7] . "\n";
+        $result []= $this->borders[5] . str_repeat($this->borders[6], $size->y + $borderMargin) . $this->borders[7];
 
         return $result;
     }

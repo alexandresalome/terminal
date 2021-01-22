@@ -12,7 +12,7 @@ trait Text
     public function blink(string $text): string
     {
         if (!$this->hasBlink()) {
-            return $text;
+            throw new \RuntimeException('Blink is unavailable.');
         }
 
         return
@@ -30,7 +30,7 @@ trait Text
     public function bold(string $text): string
     {
         if (!$this->hasBold()) {
-            return $text;
+            throw new \RuntimeException('Bold is unavailable.');
         }
 
         return
@@ -48,7 +48,7 @@ trait Text
     public function italic(string $text): string
     {
         if (!$this->hasItalic()) {
-            return $text;
+            throw new \RuntimeException('Italic is unavailable.');
         }
 
         return
@@ -65,7 +65,7 @@ trait Text
     public function standout(string $text): string
     {
         if (!$this->hasStandout()) {
-            return $text;
+            throw new \RuntimeException('Standout is unavailable.');
         }
 
         return
@@ -83,7 +83,7 @@ trait Text
     public function underline(string $text): string
     {
         if (!$this->hasUnderline()) {
-            return $text;
+            throw new \RuntimeException('Underline is unavailable.');
         }
 
         return

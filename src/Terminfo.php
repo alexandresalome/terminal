@@ -498,13 +498,13 @@ class Terminfo
     {
         $term = getenv('TERM');
         if (!$term) {
-            return $this->minimal();
+            throw new \RuntimeException('No environment variable TERM found.');
         }
 
         foreach (self::$searchLocations as $location) {
             $files = [
-                $location.'/'.$term[0].'/'.$term,
-                $location.'/'.$term,
+                $location . '/' . $term[0] . '/' . $term,
+                $location . '/' . $term,
             ];
 
             foreach ($files as $file) {
@@ -513,8 +513,6 @@ class Terminfo
                 }
             }
         }
-
-        return $this->minimal();
     }
 
     public function readFile(string $file): Configuration
@@ -523,7 +521,7 @@ class Terminfo
         $offset = 0;
         $result = [
             'description' => null,
-            'term'        => null,
+            'term' => null,
             'capabilities' => [],
         ];
 
@@ -604,10 +602,5 @@ class Terminfo
         }
 
         return new Configuration($result['capabilities']);
-    }
-
-    private function minimal(): Configuration
-    {
-        return new Configuration();
     }
 }

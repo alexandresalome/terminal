@@ -20,7 +20,7 @@ class Layer
             throw new \RuntimeException('Terminal does not support cursor addressing mode');
         }
 
-        $this->terminal->enterCursorAddressingMode();
+        $this->terminal->cursorAddressingMode();
         $this->terminal->clearScreen();
     }
 

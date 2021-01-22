@@ -18,7 +18,7 @@ trait CursorVisibility
     public function cursorVisible(bool $visible = true): void
     {
         if (!$this->hasCursorVisible()) {
-            return;
+            throw new \RuntimeException('Cursor visibility is unavailable.');
         }
 
         if ($visible) {

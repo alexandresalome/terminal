@@ -22,7 +22,7 @@ trait AutoMargin
     public function autoMargin($enable = true): void
     {
         if (!$this->hasAutoMargin()) {
-            return;
+            throw new \RuntimeException('Auto margin is unavailable.');
         }
 
         if ($enable) {

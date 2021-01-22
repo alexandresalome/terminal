@@ -38,4 +38,9 @@ abstract class Object_
     {
         return $this->changed;
     }
+
+    public function __toString(): string
+    {
+        return implode("\n", $this->render())."\n";
+    }
 }

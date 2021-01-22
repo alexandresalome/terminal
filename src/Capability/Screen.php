@@ -15,7 +15,7 @@ trait Screen
     public function clearScreen(): void
     {
         if (!$this->canClearScreen()) {
-            return;
+            throw new \RuntimeException('Clear screen is unavailable.');
         }
 
         $this->output->write($this->configuration->get('clear_screen'));
@@ -29,7 +29,7 @@ trait Screen
     public function clearEndOfScreen(): void
     {
         if (!$this->canClearEndOfScreen()) {
-            return;
+            throw new \RuntimeException('Clear end of screen is unavailable.');
         }
 
         $this->output->write($this->configuration->get('clr_eos'));
@@ -52,6 +52,10 @@ trait Screen
         if ($this->configuration->has('flash_screen')) {
             $this->output->write($this->configuration->get('flash_screen'));
             $this->output->flush();
+
+            return;
         }
+
+        throw new \RuntimeException('Flash screen is unavailable.');
     }
 }
