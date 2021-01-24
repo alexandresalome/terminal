@@ -53,7 +53,6 @@ Unhandled capabilities
 "meta_off" => "\e[?1034l"
 "meta_on" => "\e[?1034h"
 "orig_colors" => "\e]104\x07"
-"orig_pair" => "\e[39;49m"
 "padding_baud_rate" => -65536
 "parm_dch" => "\e[%p1%dP"
 "parm_delete_line" => "\e[%p1%dM"
@@ -75,8 +74,6 @@ Unhandled capabilities
 "save_cursor" => "\e7"
 "scroll_forward" => "\n"
 "scroll_reverse" => "\eM"
-"set_a_background" => "\e[%?%p1%{8}%<%t4%p1%d%e%p1%{16}%<%t10%p1%{8}%-%d%e48;5;%p1%d%;m"
-"set_a_foreground" => "\e[%?%p1%{8}%<%t3%p1%d%e%p1%{16}%<%t9%p1%{8}%-%d%e38;5;%p1%d%;m"
 "set_attributes" => "%?%p9%t\e(0%e\e(B%;\e[0%?%p6%t;1%;%?%p5%t;2%;%?%p2%t;4%;%?%p1%p3%|%t;7%;%?%p4%t;5%;%?%p7%t;8%;m"
 "set_tab" => "\eH"
 "tab" => "\t"

@@ -6,16 +6,36 @@ use Terminal\Vector;
 
 trait Cursor
 {
+    public function hasCursorVisible(): bool
+    {
+        return $this->configuration->hasAll(['cursor_visible', 'cursor_invisible']);
+    }
+
+    /**
+     * Switches the visibility of the text cursor.
+     */
+    public function cursorVisible(bool $visible = true): void
+    {
+        if (!$this->hasCursorVisible()) {
+            throw new \RuntimeException('Cursor visibility is unavailable.');
+        }
+
+        if ($visible) {
+            $this->output->write($this->configuration->get('cursor_visible'));
+        } else {
+            $this->output->write($this->configuration->get('cursor_invisible'));
+        }
+    }
+
     public function cursorAddress($vector): void
     {
         $vector = Vector::create($vector);
         $value = $this->configuration->get('cursor_address');
 
-        $this->output->write(str_replace(
-            ['%i%p1%d', '%p2%d'],
-            [$vector->x(), $vector->y()],
-            $value
-        ));
+        $this->output->write($this->configuration->getParameterized('cursor_address', [
+            $vector->x(),
+            $vector->y(),
+        ]));
         $this->output->flush();
     }
 

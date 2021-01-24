@@ -29,6 +29,12 @@ abstract class Object_
         return $this->size;
     }
 
+    public function setSize(Vector $newSize): void
+    {
+        $this->changed = true;
+        $this->size = $newSize;
+    }
+
     protected function setChanged(bool $changed = true): void
     {
         $this->changed = true;

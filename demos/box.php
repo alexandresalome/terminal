@@ -10,10 +10,15 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $terminal = new Terminal();
 
-$box = new Box(file_get_contents(__FILE__));
-$terminal->write($box);
-
-$box = new Box('Custom size', size: new Vector(3, 30));
+$box = new Box(
+    content: 'Styled boxes',
+    borders: Box::BORDERS['big'],
+    colors: [
+      'border_foreground' => 'red',
+      'background' => 'black',
+    ],
+    size: new Vector(3, 30),
+);
 $terminal->write($box);
 
 foreach (['rounded', 'double', 'ascii'] as $style) {

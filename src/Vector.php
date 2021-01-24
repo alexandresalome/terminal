@@ -61,4 +61,14 @@ class Vector
     {
         return new self(0, 0);
     }
+
+    public function withX(int $x): Vector
+    {
+        return new self($x, $this->y);
+    }
+
+    public function withY(int $y): Vector
+    {
+        return new self($this->x, $y);
+    }
 }

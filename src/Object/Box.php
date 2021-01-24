@@ -22,7 +22,7 @@ class Box extends Object_
     private array $lines;
     private ?array $borders;
 
-    public function __construct(string $content, ?array $borders = null, $position = null, $size = null)
+    public function __construct(string $content, ?array $borders = null, array $colors = [],  $position = null, $size = null)
     {
         $this->lines = explode("\n", $content);
         $this->borders = $borders ?? self::BORDERS['bold'];

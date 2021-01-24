@@ -32,8 +32,13 @@ class Layer
 
     public function draw(bool $force = false): void
     {
+        $changed = false;
         foreach ($this->objects as $object) {
-            if (!$force && !$this->changed && !$object->hasChanged()) {
+            if ($force || $this->changed || $object->hasChanged()) {
+                $changed = true;
+            }
+
+            if ($changed === false) {
                 continue;
             }
 

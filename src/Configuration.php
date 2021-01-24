@@ -8,10 +8,12 @@ namespace Terminal;
 class Configuration implements \IteratorAggregate
 {
     private array $values;
+    private TerminfoExpression $terminfoExpression;
 
     public function __construct(array $values = [])
     {
         $this->values = $values;
+        $this->terminfoExpression = new TerminfoExpression();
     }
 
     public function get(string $name): string
@@ -21,6 +23,11 @@ class Configuration implements \IteratorAggregate
         }
 
         return $this->values[$name];
+    }
+
+    public function getParameterized(string $name, array $parameters): string
+    {
+        return $this->terminfoExpression->evaluate($this->get($name), $parameters);
     }
 
     public function has(string $name): bool
