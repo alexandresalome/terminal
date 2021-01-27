@@ -11,6 +11,11 @@ class StreamOutput implements OutputInterface
         $this->stream = $stream ?? STDOUT;
     }
 
+    public function wait(int $milliseconds): void
+    {
+        usleep($milliseconds * 1000);
+    }
+
     public function write(string $text): void
     {
         fwrite($this->stream, $text);

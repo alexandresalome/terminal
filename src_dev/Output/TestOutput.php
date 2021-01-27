@@ -8,6 +8,11 @@ class TestOutput implements OutputInterface
 {
     private array $records = [];
 
+    public function wait(int $milliseconds): void
+    {
+        $this->records[] = ['wait', $milliseconds];
+    }
+
     public function write(string $text): void
     {
         $this->records[] = ['write', $text];

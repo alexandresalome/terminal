@@ -1,15 +1,19 @@
 <?php
 
-namespace Terminal\Capability;
+namespace Terminal\Terminfo\Capability;
+
+use Terminal\Output\OutputInterface;
+use Terminal\Terminfo\Capabilities;
 
 /**
- * Screen features
+ * @property Capabilities $capabilities
+ * @property OutputInterface $output
  */
 trait Screen
 {
     public function canClearScreen(): bool
     {
-        return $this->configuration->has('clear_screen');
+        return $this->capabilities->has('clear_screen');
     }
 
     public function clearScreen(): void
@@ -18,12 +22,12 @@ trait Screen
             throw new \RuntimeException('Clear screen is unavailable.');
         }
 
-        $this->output->write($this->configuration->get('clear_screen'));
+        $this->output->write($this->capabilities->get('clear_screen'));
     }
 
     public function canClearEndOfScreen(): bool
     {
-        return $this->configuration->has('clr_eos');
+        return $this->capabilities->has('clr_eos');
     }
 
     public function clearEndOfScreen(): void
@@ -32,11 +36,11 @@ trait Screen
             throw new \RuntimeException('Clear end of screen is unavailable.');
         }
 
-        $this->output->write($this->configuration->get('clr_eos'));
+        $this->output->write($this->capabilities->get('clr_eos'));
     }
     public function canDeleteLine(): bool
     {
-        return $this->configuration->has('delete_line');
+        return $this->capabilities->has('delete_line');
     }
 
     /**
@@ -48,12 +52,12 @@ trait Screen
             throw new \RuntimeException('Delete line is unavailable.');
         }
 
-        $this->output->write($this->configuration->get('delete_line'));
+        $this->output->write($this->capabilities->get('delete_line'));
     }
 
     public function canClearBeginningOfLine(): bool
     {
-        return $this->configuration->has('clr_bol');
+        return $this->capabilities->has('clr_bol');
     }
 
     /**
@@ -66,12 +70,12 @@ trait Screen
             throw new \RuntimeException('Clear beginning of line is unavailable.');
         }
 
-        $this->output->write($this->configuration->get('clr_bol'));
+        $this->output->write($this->capabilities->get('clr_bol'));
     }
 
     public function canClearEndOfLine(): bool
     {
-        return $this->configuration->has('clr_eol');
+        return $this->capabilities->has('clr_eol');
     }
 
     /**
@@ -84,25 +88,25 @@ trait Screen
             throw new \RuntimeException('Clear end of line is unavailable.');
         }
 
-        $this->output->write($this->configuration->get('clr_eol'));
+        $this->output->write($this->capabilities->get('clr_eol'));
     }
 
     public function canFlashScreen(): bool
     {
-        return $this->configuration->hasAny(['bell', 'flash_screen']);
+        return $this->capabilities->hasAny(['bell', 'flash_screen']);
     }
 
     public function flashScreen(): void
     {
-        if ($this->configuration->has('bell')) {
-            $this->output->write($this->configuration->get('bell'));
+        if ($this->capabilities->has('bell')) {
+            $this->output->write($this->capabilities->get('bell'));
             $this->output->flush();
 
             return;
         }
 
-        if ($this->configuration->has('flash_screen')) {
-            $this->output->write($this->configuration->get('flash_screen'));
+        if ($this->capabilities->has('flash_screen')) {
+            $this->output->write($this->capabilities->get('flash_screen'));
             $this->output->flush();
 
             return;

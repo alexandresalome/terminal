@@ -1,19 +1,19 @@
 <?php
 
-namespace Terminal;
+namespace Terminal\Terminfo;
 
 /**
  * This class hold the Terminal capabilities, using terminfo identifiers.
  */
-class Configuration implements \IteratorAggregate
+class Capabilities implements \IteratorAggregate
 {
     private array $values;
-    private TerminfoExpression $terminfoExpression;
+    private ExpressionParser $expressionParser;
 
     public function __construct(array $values = [])
     {
         $this->values = $values;
-        $this->terminfoExpression = new TerminfoExpression();
+        $this->expressionParser = new ExpressionParser();
     }
 
     public function get(string $name): string
@@ -27,7 +27,7 @@ class Configuration implements \IteratorAggregate
 
     public function getParameterized(string $name, array $parameters): string
     {
-        return $this->terminfoExpression->evaluate($this->get($name), $parameters);
+        return $this->expressionParser->evaluate($this->get($name), $parameters);
     }
 
     public function has(string $name): bool

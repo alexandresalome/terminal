@@ -24,3 +24,6 @@ venv:
 
 vendor:
 	@composer install
+
+generate-images:
+	php bin/render-examples.php

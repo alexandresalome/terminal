@@ -4,22 +4,25 @@ namespace Terminal;
 
 use Terminal\Output\OutputInterface;
 use Terminal\Output\StreamOutput;
+use Terminal\Terminfo\Capabilities;
+use Terminal\Terminfo\Capability\Color;
+use Terminal\Terminfo\Capability\Cursor;
+use Terminal\Terminfo\Capability\Screen;
+use Terminal\Terminfo\Capability\Text;
+use Terminal\Terminfo\Finder;
 
 class Terminal
 {
-    use Capability\Color;
-    use Capability\Cursor;
-    use Capability\Screen;
-    use Capability\Text;
+    use Color, Cursor, Screen, Text;
 
-    private Configuration $configuration;
     private OutputInterface $output;
+    private Capabilities $capabilities;
     private Vector $size;
 
-    public function __construct(?Configuration $configuration = null, ?OutputInterface $output = null)
+    public function __construct(?Capabilities $capabilities = null, ?OutputInterface $output = null)
     {
-        $this->configuration = $configuration ?? (new Terminfo())->guess();
-        $this->output = $output ?? new StreamOutput();
+        $this->capabilities = $capabilities ?? $this->guessCapabilities();
+        $this->output = $output = $output ?? new StreamOutput();
 
         pcntl_signal(SIGWINCH, function () {
             $this->updateSize();
@@ -34,11 +37,16 @@ class Terminal
         $this->output->flush();
     }
 
-    public function writeln(string $text): void
+    public function writeln(string $text = ''): void
     {
         $this->output->write($text);
         $this->output->write("\n");
         $this->output->flush();
+    }
+
+    public function getSize(): Vector
+    {
+        return $this->size;
     }
 
     private function updateSize(): void
@@ -47,5 +55,12 @@ class Terminal
         $cols = exec('tput cols');
 
         $this->size =  new Vector((int) $lines, (int) $cols);
+    }
+
+    private function guessCapabilities(): Capabilities
+    {
+        $finder = new Finder();
+
+        return $finder->guess();
     }
 }

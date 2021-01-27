@@ -1,14 +1,21 @@
 <?php
 
-namespace Terminal\Capability;
+namespace Terminal\Terminfo\Capability;
 
+use Terminal\Output\OutputInterface;
+use Terminal\Terminfo\Capabilities;
+
+/**
+ * @property Capabilities $capabilities
+ * @property OutputInterface $output
+ */
 trait Color
 {
     private static array $color8 = ['black' => 0, 'red' => 1, 'green' => 2, 'yellow' => 3, 'blue' => 4, 'magenta' => 5, 'cyan' => 6, 'white' => 7];
 
     public function hasColor(): bool
     {
-        return $this->configuration->hasAll(['set_a_foreground', 'set_a_background']);
+        return $this->capabilities->hasAll(['set_a_foreground', 'set_a_background']);
     }
 
     public function setColor(?string $foreground, ?string $background = null): void
@@ -24,7 +31,7 @@ trait Color
 
     public function setForegroundColor(string $color): void
     {
-        if (!$this->configuration->has('set_a_foreground')) {
+        if (!$this->capabilities->has('set_a_foreground')) {
             throw new \RuntimeException('Foreground color is unavailable.');
         }
 
@@ -37,7 +44,7 @@ trait Color
         }
 
         $this->output->write(
-            $this->configuration->getParameterized(
+            $this->capabilities->getParameterized(
                 'set_a_foreground',
                 [self::$color8[$color]]
             )
@@ -46,7 +53,7 @@ trait Color
 
     public function setBackgroundColor(string $color): void
     {
-        if (!$this->configuration->has('set_a_background')) {
+        if (!$this->capabilities->has('set_a_background')) {
             throw new \RuntimeException('Background color is unavailable.');
         }
 
@@ -59,7 +66,7 @@ trait Color
         }
 
         $this->output->write(
-            $this->configuration->getParameterized(
+            $this->capabilities->getParameterized(
                 'set_a_background',
                 [self::$color8[$color]]
             )
@@ -68,6 +75,6 @@ trait Color
 
     public function resetColor(): void
     {
-        $this->output->write($this->configuration->get('orig_pair'));
+        $this->output->write($this->capabilities->get('orig_pair'));
     }
 }

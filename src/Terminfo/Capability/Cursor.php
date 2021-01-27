@@ -1,14 +1,20 @@
 <?php
 
-namespace Terminal\Capability;
+namespace Terminal\Terminfo\Capability;
 
+use Terminal\Output\OutputInterface;
+use Terminal\Terminfo\Capabilities;
 use Terminal\Vector;
 
+/**
+ * @property Capabilities $capabilities
+ * @property OutputInterface $output
+ */
 trait Cursor
 {
     public function hasCursorVisible(): bool
     {
-        return $this->configuration->hasAll(['cursor_visible', 'cursor_invisible']);
+        return $this->capabilities->hasAll(['cursor_visible', 'cursor_invisible']);
     }
 
     /**
@@ -21,27 +27,27 @@ trait Cursor
         }
 
         if ($visible) {
-            $this->output->write($this->configuration->get('cursor_visible'));
+            $this->output->write($this->capabilities->get('cursor_visible'));
         } else {
-            $this->output->write($this->configuration->get('cursor_invisible'));
+            $this->output->write($this->capabilities->get('cursor_invisible'));
         }
     }
 
     public function cursorAddress($vector): void
     {
         $vector = Vector::create($vector);
-        $value = $this->configuration->get('cursor_address');
+        $value = $this->capabilities->get('cursor_address');
 
-        $this->output->write($this->configuration->getParameterized('cursor_address', [
-            $vector->x(),
-            $vector->y(),
+        $this->output->write($this->capabilities->getParameterized('cursor_address', [
+            $vector->lines(),
+            $vector->columns(),
         ]));
         $this->output->flush();
     }
 
     public function hasCursorAddressingMode(): bool
     {
-        return $this->configuration->hasAll(['enter_ca_mode', 'exit_ca_mode']);
+        return $this->capabilities->hasAll(['enter_ca_mode', 'exit_ca_mode']);
     }
 
     public function cursorAddressingMode($cursorAddressingMode = true): void
@@ -51,9 +57,9 @@ trait Cursor
         }
 
         if ($cursorAddressingMode) {
-            $this->output->write($this->configuration->get('enter_ca_mode'));
+            $this->output->write($this->capabilities->get('enter_ca_mode'));
         } else {
-            $this->output->write($this->configuration->get('exit_ca_mode'));
+            $this->output->write($this->capabilities->get('exit_ca_mode'));
         }
     }
 

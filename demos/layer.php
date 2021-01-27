@@ -15,13 +15,13 @@ $message = 'Layer demo!';
 $help = new Box(
     $message,
     position: new Vector(0, 0),
-    size: new Vector($source->getSize()->x(), 26)
+    size: new Vector($source->getSize()->lines(), 26)
 );
 $layer = new Layer($terminal, new Vector(2, 2));
 $layer->add($source);
 $layer->add($help);
 $layer->draw();
-$terminal->cursorAddress([$help->getSize()->x() + 4, 2]);
+$terminal->cursorAddress([$help->getSize()->lines() + 4, 2]);
 $terminal->write($terminal->standout($terminal->blink('Press ENTER')));
 fread(STDIN, 1);
 

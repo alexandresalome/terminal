@@ -15,7 +15,7 @@ $message = 'Layer demo!';
 $help = new Box(
     $message,
     position: new Vector(0, 0),
-    size: new Vector($source->getSize()->x(), 26)
+    size: new Vector($source->getSize()->lines(), 26)
 );
 $layer = new Layer($terminal, new Vector(2, 2));
 $layer->add($source);
@@ -24,13 +24,13 @@ $layer->draw();
 stream_set_blocking(STDIN, false);
 $size = 2;
 $char = '';
-$max = $source->getSize()->x();
+$max = $source->getSize()->lines();
 while ($char === '') {
     $size = ($size + 1) % $max;
-    $help->setSize($help->getSize()->withX($size));
+    $help->setSize($help->getSize()->withLines($size));
     $terminal->clearScreen();
     $layer->draw();
-    $terminal->cursorAddress([$source->getSize()->x() + 4, 2]);
+    $terminal->cursorAddress([$source->getSize()->lines() + 4, 2]);
     $terminal->write($terminal->standout($terminal->blink('Press ENTER')));
     $char = fread(STDIN, 1);
     usleep(100000);

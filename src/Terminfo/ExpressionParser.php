@@ -1,31 +1,26 @@
 <?php
 
 
-namespace Terminal;
+namespace Terminal\Terminfo;
 
-
-class TerminfoExpression
+class ExpressionParser
 {
     private ?string $expression = null;
-    private ?array $parameters = null;
-    private ?array $stack = null;
     private ?int $offset = null;
-    private ?int $length = null;
-    private ?string $output = null;
 
     public function evaluate(string $expression, array $parameters): string
     {
         $this->expression = $expression;
-        $this->parameters = $parameters;
-        $this->stack = [];
         $this->offset = 0;
-        $this->length = strlen($this->expression);
-        $this->output = '';
 
-        while ($this->offset < $this->length) {
+        $stack = [];
+        $length = strlen($this->expression);
+        $output = '';
+
+        while ($this->offset < $length) {
             if ($this->expression[$this->offset] !== '%') {
                 $subOffset = strpos($this->expression, '%', $this->offset);
-                $this->output .= substr($this->expression, $this->offset, $subOffset === false ? null : $subOffset - $this->offset);
+                $output .= substr($this->expression, $this->offset, $subOffset === false ? null : $subOffset - $this->offset);
                 if ($subOffset === false) {
                     break;
                 }
@@ -56,15 +51,15 @@ class TerminfoExpression
             }
 
             if ($type === 'i') {
-                $this->parameters[0]++;
-                $this->parameters[1]++;
+                $parameters[0]++;
+                $parameters[1]++;
                 $this->offset += 2;
 
                 continue;
             }
 
             if ($type === 't') {
-                $value = array_pop($this->stack);
+                $value = array_pop($stack);
                 if (!$value) {
                     $this->jumpTo('%e');
                 }
@@ -74,10 +69,10 @@ class TerminfoExpression
                 continue;
             }
 
-            if ($type === '<' || $type === '-') {
-                $left = array_pop($this->stack);
-                $right = array_pop($this->stack);
-                $this->stack[] = match ($type) {
+            if ($type === '<' || $type === '-' || $type === '+' || $type === '/' || $type === 'm') {
+                $left = array_pop($stack);
+                $right = array_pop($stack);
+                $stack[] = match ($type) {
                     '<' => $left < $right,
                     '-' => $left - $right,
                     '+' => $left + $right,
@@ -92,7 +87,7 @@ class TerminfoExpression
 
             if ($type === 'p') {
                 $number = $this->expression[$this->offset + 2] - 1;
-                $this->stack[] = $this->parameters[$number];
+                $stack[] = $parameters[$number];
                 $this->offset += 3;
 
                 continue;
@@ -101,14 +96,14 @@ class TerminfoExpression
             if ($type === '{') {
                 $subOffset = strpos($this->expression, '}', $this->offset);
                 $number = substr($this->expression, $this->offset + 2, $subOffset === false ? null : $subOffset - $this->offset - 2);
-                $this->stack[] = (int) $number;
+                $stack[] = (int) $number;
                 $this->offset = $subOffset + 1;
 
                 continue;
             }
 
             if ($type === 'd') {
-                $this->output .= array_pop($this->stack);
+                $output .= array_pop($stack);
 
                 $this->offset += 2;
 
@@ -124,7 +119,7 @@ class TerminfoExpression
             throw new \RuntimeException(sprintf('Unknown operation "%%%s".', $type));
         }
 
-        return $this->output;
+        return $output;
     }
 
     private function jumpAfter(string $string): void

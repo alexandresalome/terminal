@@ -1,19 +1,14 @@
 <?php
 
-namespace Terminal;
+namespace Terminal\Terminfo;
 
 # https://www.gnu.org/software/termutils/manual/termcap-1.3/html_mono/termcap.html#SEC23
 
 /**
- * Extract capabilities from Terminfo database (if available).
+ * Read Terminfo capabilities file.
  */
-class Terminfo
+class FileReader
 {
-    private static array $searchLocations = [
-        '/usr/lib/terminfo',
-        '/usr/share/terminfo',
-    ];
-
     // Copied from https://github.com/openbsd/src/blob/master/lib/libcurses/term.h
     private static array $booleans = [
         'auto_right_margin',
@@ -494,28 +489,7 @@ class Terminfo
 
     private static int $stringsCount = 394;
 
-    public function guess(): Configuration
-    {
-        $term = getenv('TERM');
-        if (!$term) {
-            throw new \RuntimeException('No environment variable TERM found.');
-        }
-
-        foreach (self::$searchLocations as $location) {
-            $files = [
-                $location . '/' . $term[0] . '/' . $term,
-                $location . '/' . $term,
-            ];
-
-            foreach ($files as $file) {
-                if (is_file($file)) {
-                    return $this->readFile($file);
-                }
-            }
-        }
-    }
-
-    public function readFile(string $file): Configuration
+    public function readFile(string $file): Capabilities
     {
         $buffer = file_get_contents($file);
         $offset = 0;
@@ -601,6 +575,6 @@ class Terminfo
             }
         }
 
-        return new Configuration($result['capabilities']);
+        return new Capabilities($result['capabilities']);
     }
 }

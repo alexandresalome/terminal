@@ -47,8 +47,8 @@ class Layer
             $i = 0;
             foreach ($object->render() as $line) {
                 $this->terminal->cursorAddress([
-                    $this->origin->x() + $objectPosition->x() + $i,
-                    $this->origin->y() + $objectPosition->y(),
+                    $this->origin->lines() + $objectPosition->lines() + $i,
+                    $this->origin->columns() + $objectPosition->columns(),
                 ]);
                 $i++;
                 $this->terminal->write($line);

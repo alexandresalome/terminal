@@ -1,12 +1,22 @@
 <?php
 
-namespace Terminal\Capability;
+namespace Terminal\Terminfo\Capability;
 
+use Terminal\Output\OutputInterface;
+use Terminal\Terminfo\Capabilities;
+
+/**
+ * @property Capabilities $capabilities
+ * @property OutputInterface $output
+ */
 trait Text
 {
+    private static string $attributeBlink = 'blink';
+    private static string $attributeBold = 'blink';
+
     public function hasBlink(): bool
     {
-        return $this->configuration->hasAll(['enter_blink_mode', 'exit_attribute_mode']);
+        return $this->capabilities->hasAll(['enter_blink_mode', 'exit_attribute_mode']);
     }
 
     public function blink(string $text): string
@@ -16,15 +26,15 @@ trait Text
         }
 
         return
-            $this->configuration->get('enter_blink_mode').
+            $this->capabilities->get('enter_blink_mode').
             $text.
-            $this->configuration->get('exit_attribute_mode')
+            $this->capabilities->get('exit_attribute_mode')
             ;
     }
 
     public function hasBold(): bool
     {
-        return $this->configuration->hasAll(['enter_bold_mode', 'exit_attribute_mode']);
+        return $this->capabilities->hasAll(['enter_bold_mode', 'exit_attribute_mode']);
     }
 
     public function bold(string $text): string
@@ -34,15 +44,15 @@ trait Text
         }
 
         return
-            $this->configuration->get('enter_bold_mode').
+            $this->capabilities->get('enter_bold_mode').
             $text.
-            $this->configuration->get('exit_attribute_mode')
+            $this->capabilities->get('exit_attribute_mode')
             ;
     }
 
     public function hasItalic(): bool
     {
-        return $this->configuration->hasAll(['enter_italics_mode', 'exit_italics_mode']);
+        return $this->capabilities->hasAll(['enter_italics_mode', 'exit_italics_mode']);
     }
 
     public function italic(string $text): string
@@ -52,14 +62,14 @@ trait Text
         }
 
         return
-            $this->configuration->get('enter_italics_mode').
+            $this->capabilities->get('enter_italics_mode').
             $text.
-            $this->configuration->get('exit_italics_mode')
+            $this->capabilities->get('exit_italics_mode')
             ;
     }
     public function hasStandout(): bool
     {
-        return $this->configuration->hasAll(['enter_standout_mode', 'exit_standout_mode']);
+        return $this->capabilities->hasAll(['enter_standout_mode', 'exit_standout_mode']);
     }
 
     public function standout(string $text): string
@@ -69,15 +79,15 @@ trait Text
         }
 
         return
-            $this->configuration->get('enter_standout_mode').
+            $this->capabilities->get('enter_standout_mode').
             $text.
-            $this->configuration->get('exit_standout_mode')
+            $this->capabilities->get('exit_standout_mode')
             ;
     }
 
     public function hasUnderline(): bool
     {
-        return $this->configuration->hasAll(['enter_underline_mode', 'exit_underline_mode']);
+        return $this->capabilities->hasAll(['enter_underline_mode', 'exit_underline_mode']);
     }
 
     public function underline(string $text): string
@@ -87,15 +97,15 @@ trait Text
         }
 
         return
-            $this->configuration->get('enter_underline_mode').
+            $this->capabilities->get('enter_underline_mode').
             $text.
-            $this->configuration->get('exit_underline_mode')
+            $this->capabilities->get('exit_underline_mode')
             ;
     }
 
     public function hasAutoMargin(): bool
     {
-        return $this->configuration->hasAll(['enter_am_mode', 'exit_am_mode']);
+        return $this->capabilities->hasAll(['enter_am_mode', 'exit_am_mode']);
     }
 
     /**
@@ -115,9 +125,9 @@ trait Text
         }
 
         if ($enable) {
-            $this->output->write($this->configuration->get('enter_am_mode'));
+            $this->output->write($this->capabilities->get('enter_am_mode'));
         } else {
-            $this->output->write($this->configuration->get('exit_am_mode'));
+            $this->output->write($this->capabilities->get('exit_am_mode'));
         }
     }
 }

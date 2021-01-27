@@ -4,19 +4,19 @@ namespace Terminal;
 
 class Vector
 {
-    public $x = null;
-    public $y = null;
+    private int $lines;
+    private int $columns;
 
-    public function __construct($x = null, $y = null)
+    public function __construct(int $lines, int $columns)
     {
-        $this->x = $x;
-        $this->y = $y;
+        $this->lines = $lines;
+        $this->columns = $columns;
     }
 
     public static function create(mixed $vector): Vector
     {
         if (null === $vector) {
-            return new Vector();
+            return new Vector(0, 0);
         }
 
         if ($vector instanceof self) {
@@ -33,28 +33,14 @@ class Vector
         ));
     }
 
-    public function x(): int
+    public function lines(): int
     {
-        if (!is_int($this->x)) {
-            throw new \RuntimeException(sprintf(
-                'Value X "%s" is not resolved.',
-                $this->x
-            ));
-        }
-
-        return $this->x;
+        return $this->lines;
     }
 
-    public function y(): int
+    public function columns(): int
     {
-        if (!is_int($this->y)) {
-            throw new \RuntimeException(sprintf(
-                'Value Y "%s" is not resolved.',
-                $this->y
-            ));
-        }
-
-        return $this->y;
+        return $this->columns;
     }
 
     public static function zero(): Vector
@@ -62,13 +48,13 @@ class Vector
         return new self(0, 0);
     }
 
-    public function withX(int $x): Vector
+    public function withLines(int $lines): Vector
     {
-        return new self($x, $this->y);
+        return new self($lines, $this->columns);
     }
 
-    public function withY(int $y): Vector
+    public function withColumns(int $columns): Vector
     {
-        return new self($this->x, $y);
+        return new self($this->lines, $columns);
     }
 }
