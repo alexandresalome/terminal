@@ -21,6 +21,11 @@ class Finder
             throw new \RuntimeException('No environment variable TERM found.');
         }
 
+        return $this->get($term);
+    }
+
+    public function get(string $term): Capabilities
+    {
         foreach (self::$searchLocations as $location) {
             $files = [
                 $location.'/'.$term[0].'/'.$term,

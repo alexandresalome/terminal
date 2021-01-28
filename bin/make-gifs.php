@@ -3,8 +3,7 @@
 namespace Main;
 
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
-use Terminal\Dev\Markdown\ExampleRenderer;
+use Terminal\Dev\Documentation\GifMaker;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -13,8 +12,11 @@ $finder = Finder::create()
     ->name('*.md')
 ;
 
-$renderer = new ExampleRenderer();
+$renderer = new GifMaker(
+    dirname(__DIR__).'/docs',
+    '_gifs',
+);
 
 foreach ($finder as $file) {
-    $renderer->render($file->getRealPath());
+    $renderer->makeGifs($file->getRealPath());
 }

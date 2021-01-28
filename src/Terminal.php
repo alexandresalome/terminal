@@ -49,6 +49,11 @@ class Terminal
         return $this->size;
     }
 
+    public function wait(int $milliseconds): void
+    {
+        $this->output->wait($milliseconds);
+    }
+
     private function updateSize(): void
     {
         $lines = exec('tput lines');

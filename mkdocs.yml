@@ -7,10 +7,18 @@ site_dir: build/doc
 theme: readthedocs
 
 nav:
+  - Homepage: index.md
   - Installation: installation.md
-  - Resources:
-    - 'unhandled-capabilities.md'
-    - 'related.md'
+  - Compatibility: compatibility.md
+  - Usage:
+    - Text manipulation: text.md
+    - Color: color.md
+    - Cursor: cursor.md
+  - Going further:
+    - How it works: how-it-works.md
+    - References: references.md
+    - Unhandled capabilities: unhandled-capabilities.md
+    - Vocabulary: vocabulary.md
 
 extra:
   version: 0.1

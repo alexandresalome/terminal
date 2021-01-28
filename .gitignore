@@ -1,4 +1,6 @@
 /.phpunit.cache/*
+/build/*
+_gifs
 /node_modules/*
 /vendor/*
 /venv/*

@@ -12,18 +12,8 @@ When auto-margin is **enabled**, it will automatically scroll to the next line.
 When auto-margin is **disabled**, the text is discarded until the cursor goes to
 the next line.
 
-``autoMargin(bool $enabled = true): void``
-
-**Parameters**
-
-| Name       | Default | Description                                         |
-| ---------- | ------- | --------------------------------------------------- |
-| `$enabled` | `true`  | A boolean indicating if the feature must be enabled |
-
-
-**Example**
-
-```terminal(5,20)
+```
+# Terminal (20,50)
 $terminal->writeln(new Terminal\Object\Box('Auto-margin'));
 
 $terminal->autoMargin();
@@ -38,3 +28,4 @@ $terminal->autoMargin();
 $terminal->writeln('The paragraph above is partially displayed because auto-margin has been disabled.');
 $terminal->writeln();
 ```
+![Video capture of code above](_gifs/text.0.gif)
